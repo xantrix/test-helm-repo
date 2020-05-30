@@ -35,8 +35,11 @@ main() {
         exit
     fi
 
-    rm -rf .deploy
-    mkdir -p .deploy
+    rm -rf .cr-release-packages
+    mkdir -p .cr-release-packages
+
+    rm -rf .cr-index
+    mkdir -p .cr-index
 
     echo "Identifying changed charts since tag '$latest_tag'..."
 
@@ -50,7 +53,6 @@ main() {
         done
 
         release_charts
-        sleep 5
         update_index
     else
         echo "Nothing to do. No chart changes detected."
@@ -67,42 +69,24 @@ find_latest_tag() {
 
 package_chart() {
     local chart="$1"
-    helm dependency build "$chart"
-    helm package "$chart" --destination .deploy
+    helm package "$chart" --destination .cr-release-packages --dependency-update
 }
 
 release_charts() {
-    cr upload -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME" -p .deploy
+    cr upload -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME"
 }
 
 update_index() {
-    cr index -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME" -p .deploy/index.yaml -c "$CR_REPO_URL"
+    cr index -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME" -c "$CR_REPO_URL"
 
     git config user.email "$GIT_EMAIL"
     git config user.name "$GIT_USERNAME"
 
-    for file in charts/*/*.md; do
-        if [[ -e $file ]]; then
-            mkdir -p ".deploy/docs/$(dirname "$file")"
-            cp --force "$file" ".deploy/docs/$(dirname "$file")"
-        fi
-    done
-
     git checkout gh-pages
-    cp --force .deploy/index.yaml index.yaml
-
-    if [[ -e ".deploy/docs/charts" ]]; then
-        mkdir -p charts
-        cp --force --recursive .deploy/docs/charts/* charts/
-    fi
-
-    git checkout master -- README.md
-
-    if ! git diff --quiet; then
-        git add .
-        git commit --message="Update index.yaml" --signoff
-        git push "$GIT_REPOSITORY_URL" gh-pages
-    fi
+    cp --force .cr-index/index.yaml index.yaml
+    git add index.yaml
+    git commit --message="Update index.yaml" --signoff
+    git push "$GIT_REPOSITORY_URL" gh-pages
 }
 
 main
