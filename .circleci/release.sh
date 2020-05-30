@@ -4,6 +4,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+: "${CR_REPO_URL:?Environment variable CR_REPO_URL must be set}"
 : "${CR_TOKEN:?Environment variable CR_TOKEN must be set}"
 : "${GIT_REPOSITORY_URL:?Environment variable GIT_REPO_URL must be set}"
 : "${GIT_USERNAME:?Environment variable GIT_USERNAME must be set}"
@@ -75,7 +76,7 @@ release_charts() {
 }
 
 update_index() {
-    cr index -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME" -p .deploy/index.yaml
+    cr index -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME" -p .deploy/index.yaml -c "$CR_REPO_URL"
 
     git config user.email "$GIT_EMAIL"
     git config user.name "$GIT_USERNAME"
