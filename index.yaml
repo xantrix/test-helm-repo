@@ -3,6 +3,16 @@ entries:
   app1:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2020-06-07T15:23:45.692655867Z"
+    description: A Helm chart for Kubernetes
+    digest: 6db12077735f9423d5a784de533afa439d834740b954449ab0e7e55216525eaf
+    name: app1
+    type: application
+    urls:
+    - https://github.com/xantrix/test-helm-repo/releases/download/app1-0.1.3/app1-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2020-05-30T18:20:28.714155892Z"
     description: A Helm chart for Kubernetes
     digest: 28663b78fcb99cffffdaa8d7aae622f0821e36ae0d620bc4cc61361a53982b35
