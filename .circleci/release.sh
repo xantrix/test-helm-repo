@@ -3,6 +3,7 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o xtrace
 
 : "${CR_REPO_URL:?Environment variable CR_REPO_URL must be set}"
 : "${CR_TOKEN:?Environment variable CR_TOKEN must be set}"
