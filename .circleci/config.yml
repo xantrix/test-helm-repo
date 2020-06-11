@@ -12,8 +12,12 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - checkout
       - run:
+          name: checkout
+          command: |
+            git clone https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git
+      - run:
+          name: release
           command: |
             echo "export GIT_REPOSITORY_URL=$CIRCLE_REPOSITORY_URL" >> $BASH_ENV
             echo "export GIT_USERNAME=$CIRCLE_PROJECT_USERNAME" >> $BASH_ENV
