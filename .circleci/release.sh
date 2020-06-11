@@ -7,13 +7,13 @@ set -o xtrace
 
 : "${GITHUB_TOKEN:?Environment variable GITHUB_TOKEN must be set}"
 : "${CR_REPO_URL:?Environment variable CR_REPO_URL must be set}"
-: "${CR_TOKEN:=$GITHUB_TOKEN}"
 : "${GIT_REPOSITORY_URL:?Environment variable GIT_REPO_URL must be set}"
 : "${GIT_USERNAME:?Environment variable GIT_USERNAME must be set}"
 : "${GIT_EMAIL:?Environment variable GIT_EMAIL must be set}"
 : "${GIT_REPOSITORY_NAME:?Environment variable GIT_REPOSITORY_NAME must be set}"
 
 readonly REPO_ROOT="${REPO_ROOT:-$(git rev-parse --show-toplevel)}"
+readonly CR_TOKEN=$GITHUB_TOKEN
 
 main() {
     pushd "$REPO_ROOT" > /dev/null
