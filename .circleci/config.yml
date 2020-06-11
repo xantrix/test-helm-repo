@@ -13,9 +13,6 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "5b:27:15:66:99:4b:32:9e:75:b1:14:90:01:c4:bd:cd"      
       - run:
           command: |
             echo "export GIT_REPOSITORY_URL=$CIRCLE_REPOSITORY_URL" >> $BASH_ENV

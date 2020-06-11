@@ -5,8 +5,9 @@ set -o nounset
 set -o pipefail
 set -o xtrace
 
+: "${GITHUB_TOKEN:?Environment variable GITHUB_TOKEN must be set}"
 : "${CR_REPO_URL:?Environment variable CR_REPO_URL must be set}"
-: "${CR_TOKEN:?Environment variable CR_TOKEN must be set}"
+: "${CR_TOKEN:=$GITHUB_TOKEN}"
 : "${GIT_REPOSITORY_URL:?Environment variable GIT_REPO_URL must be set}"
 : "${GIT_USERNAME:?Environment variable GIT_USERNAME must be set}"
 : "${GIT_EMAIL:?Environment variable GIT_EMAIL must be set}"
@@ -74,15 +75,18 @@ package_chart() {
 }
 
 release_charts() {
+    #using CR_TOKEN
     cr upload -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME"
 }
 
 update_index() {
+    #using CR_TOKEN
     cr index -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME" -c "$CR_REPO_URL"
 
     git config user.email "$GIT_EMAIL"
     git config user.name "$GIT_USERNAME"
 
+    #using GITHUB_TOKEN
     git checkout gh-pages
     cp --force .cr-index/index.yaml index.yaml
     git add index.yaml
