@@ -8,3 +8,5 @@ helm install test1 test-helm-repo/app1
 ./local-dev/kubectl get all
 
 helm uninstall test1
+
+# use GH_PAT
