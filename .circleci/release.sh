@@ -13,7 +13,7 @@ set -o xtrace
 : "${GIT_REPOSITORY_NAME:?Environment variable GIT_REPOSITORY_NAME must be set}"
 
 readonly REPO_ROOT="${REPO_ROOT:-$(git rev-parse --show-toplevel)}"
-readonly CR_TOKEN=$GITHUB_TOKEN
+CR_TOKEN="$GITHUB_TOKEN"
 
 main() {
     pushd "$REPO_ROOT" > /dev/null
