@@ -91,7 +91,7 @@ update_index() {
     cp --force .cr-index/index.yaml index.yaml
     git add index.yaml
     git commit --message="Update index.yaml" --signoff
-    git push gh-pages
+    git push origin gh-pages
 }
 
 main
