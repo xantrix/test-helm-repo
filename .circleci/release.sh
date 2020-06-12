@@ -7,7 +7,6 @@ set -o xtrace
 
 : "${GITHUB_TOKEN:?Environment variable GITHUB_TOKEN must be set}"
 : "${CR_REPO_URL:?Environment variable CR_REPO_URL must be set}"
-: "${GIT_REPOSITORY_URL:?Environment variable GIT_REPO_URL must be set}"
 : "${GIT_USERNAME:?Environment variable GIT_USERNAME must be set}"
 : "${GIT_EMAIL:?Environment variable GIT_EMAIL must be set}"
 : "${GIT_REPOSITORY_NAME:?Environment variable GIT_REPOSITORY_NAME must be set}"
@@ -86,7 +85,6 @@ update_index() {
     git config user.email "$GIT_EMAIL"
     git config user.name "$GIT_USERNAME"
 
-    #using GITHUB_TOKEN
     git checkout gh-pages
     cp --force .cr-index/index.yaml index.yaml
     git add index.yaml

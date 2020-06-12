@@ -9,4 +9,8 @@ helm install test1 test-helm-repo/app1
 
 helm uninstall test1
 
-# use GH_PAT
+# chart releaser
+https://github.com/helm/chart-releaser
+
+# circleci
+`GITHUB_TOKEN` secret
