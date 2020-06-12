@@ -44,7 +44,7 @@ main() {
     echo "Identifying changed charts since tag '$latest_tag'..."
 
     local changed_charts=()
-    local charts_path='**/Chart.yaml'
+    local charts_path='*/Chart.yaml'
     readarray -t changed_charts <<< "$(git diff --find-renames --name-only "$latest_tag_rev" -- "$charts_path" | cut -d '/' -f 1 | uniq)"
 
     if [[ -n "${changed_charts[*]}" ]]; then
