@@ -44,12 +44,13 @@ main() {
     echo "Identifying changed charts since tag '$latest_tag'..."
 
     local changed_charts=()
-    readarray -t changed_charts <<< "$(git diff --find-renames --name-only "$latest_tag_rev" -- charts | cut -d '/' -f 2 | uniq)"
+    local charts_path='**/Chart.yaml'
+    readarray -t changed_charts <<< "$(git diff --find-renames --name-only "$latest_tag_rev" -- "$charts_path" | cut -d '/' -f 1 | uniq)"
 
     if [[ -n "${changed_charts[*]}" ]]; then
         for chart in "${changed_charts[@]}"; do
             echo "Packaging chart '$chart'..."
-            package_chart "charts/$chart"
+            package_chart "$chart"
         done
 
         release_charts
