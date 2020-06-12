@@ -2,3 +2,4 @@ local-dev/k3d
 local-dev/kubectl
 k3d
 tmp
+vars.sh
