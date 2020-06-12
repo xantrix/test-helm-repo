@@ -3,3 +3,5 @@ local-dev/kubectl
 k3d
 tmp
 vars.sh
+.cr-index
+.cr-release-packages
