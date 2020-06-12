@@ -8,7 +8,6 @@ set -o xtrace
 : "${GITHUB_TOKEN:?Environment variable GITHUB_TOKEN must be set}"
 : "${CR_REPO_URL:?Environment variable CR_REPO_URL must be set}"
 : "${GIT_USERNAME:?Environment variable GIT_USERNAME must be set}"
-: "${GIT_EMAIL:?Environment variable GIT_EMAIL must be set}"
 : "${GIT_REPOSITORY_NAME:?Environment variable GIT_REPOSITORY_NAME must be set}"
 
 readonly REPO_ROOT="${REPO_ROOT:-$(git rev-parse --show-toplevel)}"
@@ -82,8 +81,8 @@ update_index() {
     #using CR_TOKEN
     cr index -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME" -c "$CR_REPO_URL"
 
-    git config user.email "$GIT_EMAIL"
-    git config user.name "$GIT_USERNAME"
+    git config user.email "circleci@users.noreply.github.com"
+    git config user.name "circleci"
 
     git checkout gh-pages
     cp --force .cr-index/index.yaml index.yaml
