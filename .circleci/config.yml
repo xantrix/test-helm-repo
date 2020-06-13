@@ -1,9 +1,10 @@
 version: 2
 jobs:
   build:
-    machine: true
+    docker:
+      - image: cimg/base:stable
     branches:
       ignore: gh-pages
     steps:
-      - run: echo "Skipping tests on gh-pages branch"
+      - run: echo "Skipping on gh-pages branch"
 

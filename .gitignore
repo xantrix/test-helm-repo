@@ -1,0 +1,6 @@
+.cr-index
+.cr-release-packages
+tmp
+vars.sh
+k3d
+local-dev
